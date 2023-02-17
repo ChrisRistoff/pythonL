@@ -3,7 +3,7 @@ alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n'
 
 def calculate():
     go_again = " "
-    while go_again == "yes" or go_again == " " :
+    while go_again.lower() == "yes" or go_again == " " :
         direction = input("Type 'encode' to encrypt, type 'decode' to decrypt:\n")
         while direction != "encode" and direction != "decode" :
             direction = input("Type 'encode' to encrypt, type 'decode' to decrypt:\n")
@@ -17,9 +17,9 @@ def calculate():
             if letter == " " :
                 new_word += letter
             elif direction == "encode" :
-                index_new_letter = alphabet.index(letter) + (shift - 26)
+                index_new_letter = (alphabet.index(letter) - shift) % 26
             elif direction == "decode" :
-                index_new_letter = alphabet.index(letter) - (shift + 26) 
+                index_new_letter = (alphabet.index(letter) + shift ) % 26 
             if letter != " " :
                 new_letter = alphabet[index_new_letter]
                 new_word += new_letter
