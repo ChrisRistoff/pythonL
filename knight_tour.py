@@ -2,18 +2,18 @@ import random
 import time
 
 chess_board = {
-    1: ["[ ]","[ ]","[ ]","[ ]","[ ]","[ ]","[ ]"],
-    2: ["[ ]","[ ]","[ ]","[ ]","[ ]","[ ]","[ ]"],
-    3: ["[ ]","[ ]","[ ]","[ ]","[ ]","[ ]","[ ]"],
-    4: ["[ ]","[ ]","[ ]","[ ]","[ ]","[ ]","[ ]"],
-    5: ["[ ]","[ ]","[ ]","[ ]","[ ]","[ ]","[ ]"],
-    6: ["[ ]","[ ]","[ ]","[ ]","[ ]","[ ]","[ ]"],
-    7: ["[ ]","[ ]","[ ]","[ ]","[ ]","[ ]","[ ]"],
-    8: ["[ ]","[ ]","[ ]","[ ]","[ ]","[ ]","[ ]"],
+    1: ["[ ]","[ ]","[ ]","[ ]","[ ]","[ ]","[ ]","[ ]"],
+    2: ["[ ]","[ ]","[ ]","[ ]","[ ]","[ ]","[ ]","[ ]"],
+    3: ["[ ]","[ ]","[ ]","[ ]","[ ]","[ ]","[ ]","[ ]"],
+    4: ["[ ]","[ ]","[ ]","[ ]","[ ]","[ ]","[ ]","[ ]"],
+    5: ["[ ]","[ ]","[ ]","[ ]","[ ]","[ ]","[ ]","[ ]"],
+    6: ["[ ]","[ ]","[ ]","[ ]","[ ]","[ ]","[ ]","[ ]"],
+    7: ["[ ]","[ ]","[ ]","[ ]","[ ]","[ ]","[ ]","[ ]"],
+    8: ["[ ]","[ ]","[ ]","[ ]","[ ]","[ ]","[ ]","[ ]"],
 }
 
 up_down = random.randint(1,8)
-left_right = random.randint(1,6)
+left_right = random.randint(1,7)
 recorded_moves = []
 
 x = True
@@ -23,7 +23,6 @@ for key in chess_board:
     else :
         x = False
     while x == True :
-        stuck = 0
         recorded_moves.append([up_down, left_right])
         time.sleep(1)
         for key in chess_board:
@@ -34,23 +33,23 @@ for key in chess_board:
         chess_board[up_down][left_right] = "[X]"
         print('''new
         move
-        mofo''')
+            ''')
     
         if up_down + 2 <= 8:
-            if left_right +1 <= 6 :
+            if left_right +1 <= 7 :
                 if chess_board[up_down + 2][left_right + 1] == "[ ]" :
                     next_move.append([up_down+2,left_right +1])
             if left_right - 1 >= 0 :
                 if chess_board[up_down + 2][left_right - 1] == "[ ]" :
                     next_move.append([up_down+2, left_right -1])
         if up_down -2 >= 1:
-            if left_right +1 <= 6 :
+            if left_right +1 <= 7 :
                 if chess_board[up_down - 2][left_right + 1] == "[ ]" :
                     next_move.append([up_down-2, left_right+1])
             if left_right - 1 >= 0 :
                 if chess_board[up_down - 2][left_right - 1] == "[ ]" :
                     next_move.append([up_down-2, left_right-1])
-        if left_right +2 <= 6 :
+        if left_right +2 <= 7 :
             if up_down + 1 <= 8 :
                 if chess_board[up_down + 1][left_right + 2] == "[ ]" :
                     next_move.append([up_down+1, left_right+2])
