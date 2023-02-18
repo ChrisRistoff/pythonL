@@ -15,14 +15,17 @@ chess_board = {
 up_down = random.randint(1,8)
 left_right = random.randint(1,7)
 recorded_moves = []
-
+n = 0
 x = True
-for key in chess_board:
-    if "[ ]" in chess_board[key]:
-        x = True
-    else :
-        x = False
-    while x == True :
+    
+while x > 0 :
+        n += 1
+        for key in chess_board:
+            for element in chess_board[key]:
+                if element == "[ ]":
+                    x += 1
+                else :
+                    x = 0
         recorded_moves.append([up_down, left_right])
         time.sleep(1)
         for key in chess_board:
@@ -30,7 +33,7 @@ for key in chess_board:
                 chess_board[up_down][left_right] = "[H]"
             print(''.join(chess_board[key]))
         next_move = []    
-        chess_board[up_down][left_right] = "[X]"
+        chess_board[up_down][left_right] = f"[{n}]"
         print('''new
         move
             ''')
