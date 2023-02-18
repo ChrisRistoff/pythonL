@@ -64,11 +64,12 @@ for key in chess_board:
                 if chess_board[up_down - 1][left_right - 2] == "[ ]" :
                     next_move.append([up_down-1, left_right-2])
         if next_move == [] :
-            up_down = recorded_moves[-5][0]
-            left_right = recorded_moves[-5][1]
-            print("GOING BACK 5 MOVES")
-            time.sleep(3)
-            for key in range(1, 5) :
+            n = int(input("How many moves would you like to go back? \n"))
+            up_down = recorded_moves[-n][0]
+            left_right = recorded_moves[-n - 1][1]
+            print(f"GOING BACK {n} MOVES")
+            time.sleep(1)
+            for key in range(1, n) :
                 chess_board[recorded_moves[-key][0]][recorded_moves[-key][1]] = "[ ]"
                 del recorded_moves[-key]
         elif next_move != []:
