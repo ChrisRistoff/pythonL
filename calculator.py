@@ -7,19 +7,19 @@ def divide(n1 ,n2) :
 def minus(n1 ,n2) :
     return n1 - n2
 
-def calculation (n1, operand) :
+operations = {
+    "+": add,
+    "*": multiply,
+    "/": divide,
+    "-": minus,
+}
+
+def calculation (n1, operand,dic) :
     while operand != "*" and operand != "+" and operand != "-" and operand != "/" :
         operand = str(input("Choose an operation * + - /\n"))
     number_two = int(input("Choose a number\n"))
-    if operand == "*" :
-        g = multiply(n1, number_two)
-    elif operand == "-" :
-        g = minus(n1, number_two)
-    elif operand == "+" :
-        g = add(n1, number_two)
-    else :
-        g = divide(n1, number_two)
-    return g
+    return dic[operand](n1, number_two)
+
 def go_again(a) :
     while a != "yes" :
         if a == "no" :
@@ -31,6 +31,6 @@ def go_again(a) :
 number_one = int(input("Choose a number\n"))
 again = ""
 while again != "no" :
-    number_one = calculation(number_one, "")
+    number_one = calculation(number_one, "", operations)
     print(number_one)
     again = go_again("")
