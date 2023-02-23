@@ -1,12 +1,9 @@
 def add(n1, n2) :
     return n1 + n2
-
 def multiply(n1, n2) :
    return n1 * n2
-
 def divide(n1 ,n2) :
     return n1 / n2
-
 def minus(n1 ,n2) :
     return n1 - n2
 
@@ -23,7 +20,6 @@ def calculation (n1, operand) :
     else :
         g = divide(n1, number_two)
     return g
-
 def go_again(a) :
     while a != "yes" :
         if a == "no" :
@@ -34,10 +30,7 @@ def go_again(a) :
 
 number_one = int(input("Choose a number\n"))
 again = ""
-operation =""
-new_number = 0
-
 while again != "no" :
-    number_one = calculation(number_one, operation)
+    number_one = calculation(number_one, "")
     print(number_one)
-    go_again(again)
+    again = go_again("")
