@@ -42,8 +42,9 @@ def play_player_hand(score_list) :
             p_hand.append(cards[random.randint(0, 12)])
             score = get_score(p_hand)
             print(f"{p_hand} score : {score}")
-    if score > 21:
+        if score > 21:
             time.sleep(1)
+            score_list[1] += 1
             print(f"score : {score} BUST! YOU LOSE")
             return p_hand and score_list
 
@@ -51,16 +52,17 @@ def play_computer_hand(pl_hand_score, c_hand, score_list):
     score = get_score(c_hand)
     if pl_hand_score > 21 :
         return c_hand
-    while score <= pl_hand_score:
+    while score < pl_hand_score:
         time.sleep(1)
         c_hand.append(cards[random.randint(0,12)])
         score = get_score(c_hand)
         print(f"{c_hand} score : {score}")
     if score > 21 :
         time.sleep(1)
+        score_list[0] += 1
         print(f"Computer is BUST with {score} score, YOU WON!")
-        return c_hand and score_list
-    return c_hand
+        return c_hand
+    return c_hand and score_list
 
 def play_again_prompt() :
     a = ""
@@ -97,15 +99,17 @@ while play != "no":
     comp_hand = play_computer_hand(your_score, comp_hand, score)
     comp_score = get_score(comp_hand)
 
-    if your_score <= 21 and comp_score <=21:
-        if your_score > comp_score:
-            print(f"YOU WIN with score : {your_score}")
-            score[0] += 1
+    if your_score > 21 or comp_score > 21 :
+        ""
+    else:
+        if your_score == comp_score:
+            print("DRAW!!!")
         elif your_score < comp_score:
             print(f"Computer WINs with score : {comp_score}")
             score[1] += 1
-        elif your_score == comp_score:
-            print("DRAW!!!")
+        elif your_score > comp_score:
+            print(f"YOU WIN with score : {your_score}")
+            score[0] += 1
     
     print(f"Computer wins : {score[1]}\nPlayer wins : {score[0]}")
 
