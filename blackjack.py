@@ -78,19 +78,27 @@ while play != "no":
     comp_hand = deal_hand()
     print(f"[{comp_hand[0]}][[]]")
     comp_score = get_score(comp_hand)
+    
+    #computer blackjack
     if comp_score == 21 :
         score[1] += 1
         print(f"{comp_hand} BLACKJACK! Computer wins")
         print(f"Computer wins : {score[1]}\nPlayer wins : {score[0]}")
         play = play_again_prompt()
         continue
+    #computer blackjack end
+    
     time.sleep(1)
     your_hand = play_player_hand(score)
+    
+    #player blackjack
     if your_hand is True:
         score[0] += 1
         print(f"Computer wins : {score[1]}\nPlayer wins : {score[0]}")
         play = play_again_prompt()
         continue
+    #player blackjack end
+
     your_score = get_score(your_hand)
     print(f"Computer hand\n {comp_hand}")
     time.sleep(1)

@@ -1,37 +1,24 @@
 import random
 import time
 
-cards = ["A", 2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K"]
-
-def get_score(hand):
-    n = 0
-    for key in hand:
-        if key == "Q" or key == "K" or key == "J":
-            n += 10
-        elif key == "A":
-            if n + 11 <= 21 :
-                n += 11
-            else :
-                n += 1
-        else:
-            n += int(key)
-    return n
+cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 
 def deal_hand(): 
     the_hand = []
     while len(the_hand) < 2 :
-        the_hand.append(cards[random.randint(0, 12)])
+        the_hand.append(cards[random.randint(0,12)])
+    if sum(the_hand) > 21:
+        the_hand[1] = 1
     return the_hand
 
-def play_player_hand(score_list) :
+def play_player_hand() :
     p_hand = deal_hand()
-    score = get_score(p_hand)
-    print(f"{p_hand} score : {score}")
-    if score == 21:
+    print(f"{p_hand} score : {sum(p_hand)}")
+    if sum(p_hand) == 21:
         time.sleep(1)
         print("Blackjack! YOU WIN!")
         return True
-    while score <= 21 :
+    while sum(p_hand) <= 21 :
         hit_pass = ""
         while hit_pass.lower() != "hit" and hit_pass.lower() != "pass":
             hit_pass = input("Hit or Pass\n")
@@ -39,46 +26,39 @@ def play_player_hand(score_list) :
             return p_hand
         elif hit_pass == "hit" :
             time.sleep(1)
-            p_hand.append(cards[random.randint(0, 12)])
-            score = get_score(p_hand)
-            print(f"{p_hand} score : {score}")
-        if score > 21:
-            time.sleep(1)
-            score_list[1] += 1
-            print(f"score : {score} BUST! YOU LOSE")
-            return p_hand and score_list
+            p_hand.append(cards[random.randint(0,12)])
+            print(f"{p_hand} score : {sum(p_hand)}")
+            if p_hand[-1] == 11 :
+                choose_ace_value = 0
+                while choose_ace_value != 1 and choose_ace_value != 11:
+                    try : 
+                        choose_ace_value = int(input("Choose 1 or 11 for ace value\n"))
+                    except ValueError or TypeError :
+                        continue
+                p_hand[-1] = choose_ace_value
+                print(f"{p_hand} score : {sum(p_hand)}")
+    if sum(p_hand) > 21:
+        time.sleep(1)
+        print(f"score : {sum(p_hand)} BUST! YOU LOSE")
+        return p_hand
 
-def play_computer_hand(pl_hand_score, c_hand, score_list):
-    score = get_score(c_hand)
-    if pl_hand_score > 21 :
-        return c_hand
-    while score < pl_hand_score:
+def play_computer_hand(pl_hand, c_hand):
+    if sum(pl_hand) > 21 :
+        return
+    while sum(c_hand) < sum(pl_hand):
         time.sleep(1)
         c_hand.append(cards[random.randint(0,12)])
-        score = get_score(c_hand)
-        print(f"{c_hand} score : {score}")
-    if score > 21 :
+        print(f"{c_hand} score : {sum(c_hand)}")
+        if c_hand[-1] == 11:
+            if sum(c_hand) > 21:
+                c_hand[-1] = 1
+                time.sleep(1)
+                print(f"{c_hand} score : {sum(c_hand)}")
+    if sum(c_hand) > 21 :
         time.sleep(1)
-        score_list[0] += 1
-        print(f"Computer is BUST with {score} score, YOU WON!")
+        print(f"Computer is BUST with {sum(c_hand)} score, YOU WON!")
         return c_hand
-    return c_hand and score_list
-
-def decide_winner(your_score, comp_score, score_list) :
-    if your_score > 21 and comp_score > 21 :
-        return score_list
-    else:
-        if your_score > comp_score:
-            print(f"YOU WIN with score : {your_score}")
-            score_list[0] += 1
-            return score_list
-        elif your_score < comp_score:
-            print(f"Computer WINs with score : {comp_score}")
-            score_list[1] += 1
-            return score_list
-        elif your_score == comp_score:
-            print("DRAW!!!")
-            return score_list
+    return c_hand
 
 def play_again_prompt() :
     a = ""
@@ -88,36 +68,31 @@ def play_again_prompt() :
         return a
     else :
         return a
-
+    
 play = ""
-score = [0, 0]
-
 while play != "no":
     comp_hand = deal_hand()
     print(f"[{comp_hand[0]}][[]]")
-    comp_score = get_score(comp_hand)
-    if comp_score == 21 :
-        score[1] += 1
+    if comp_hand == 21 :
         print(f"{comp_hand} BLACKJACK! Computer wins")
-        print(f"Computer wins : {score[1]}\nPlayer wins : {score[0]}")
         play = play_again_prompt()
         continue
     time.sleep(1)
-    your_hand = play_player_hand(score)
+    your_hand = play_player_hand()
     if your_hand is True:
-        score[0] += 1
-        print(f"Computer wins : {score[1]}\nPlayer wins : {score[0]}")
         play = play_again_prompt()
         continue
-    your_score = get_score(your_hand)
     print(f"Computer hand\n {comp_hand}")
     time.sleep(1)
-    comp_hand = play_computer_hand(your_score, comp_hand, score)
-    comp_score = get_score(comp_hand)
-
-    score = decide_winner(your_score, comp_score, score)
-    print(f"Computer wins : {score[1]}\nPlayer wins : {score[0]}")
-
+    comp_hand = play_computer_hand(your_hand, comp_hand)
+    
+    if sum(your_hand) > 21 or sum(comp_hand) > 21 :
+        ""
+    else:
+        if sum(your_hand) > sum(comp_hand):
+            print(f"YOU WIN with score : {sum(your_hand)}")
+        elif sum(your_hand) < sum(comp_hand):
+            print(f"Computer WINs with score : {sum(comp_hand)}")
+        else :
+            print("DRAW!!!")
     play = play_again_prompt()
-
-
