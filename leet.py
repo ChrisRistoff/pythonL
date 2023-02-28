@@ -1,10 +1,10 @@
-numbers = int(input('numbers\n'))
+numbers = int(input("numbers\n"))
 newNumbers = str(numbers)
-g = ['']
+g = [""]
 gg = False
-for number in newNumbers : 
-    if number in g :
+for number in newNumbers:
+    if number in g:
         gg = True
-    if number not in g :
+    if number not in g:
         g += number
 print(gg)
