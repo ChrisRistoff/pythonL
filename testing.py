@@ -1,6 +1,7 @@
-dicto = [
-    {"name": "namooo", "whatever": "safafasdf"},
-    {"key": "fasfa", "key2": "adgsgsd"},
-]
+from turtle import Turtle, Screen
 
-print(dicto[0]["name"])
+timmy = Turtle()
+my_screen = Screen()
+
+while True:
+    print(my_screen.canvheight)

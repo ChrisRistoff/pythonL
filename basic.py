@@ -74,8 +74,7 @@ def play_again_prompt():
         return a
 
 
-play = ""
-while play != "no":
+while True:
     comp_hand = deal_hand()
     print(f"[{comp_hand[0]}][[]]")
     if comp_hand == 21:
@@ -101,3 +100,7 @@ while play != "no":
         else:
             print("DRAW!!!")
     play = play_again_prompt()
+
+    if play == "no":
+        print("Thanks for playing!")
+        break

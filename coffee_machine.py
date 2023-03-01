@@ -119,5 +119,12 @@ while True:
     if choice == "exit":
         print("Goodbye")
         break
+    if (
+        resources["water"] < menu[choice]["ingredients"]["water"]
+        or resources["milk"] < menu[choice]["ingredients"]["milk"]
+        or resources["coffee"] < menu[choice]["ingredients"]["coffee"]
+    ):
+        print("Sorry, there is not enough resources to make your drink")
+        continue
     print("Your change is!\n$" + str(insert_coin_prompt(choice, "", "", "", "")))
     update_resources(resources, choice)
