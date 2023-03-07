@@ -1,4 +1,2 @@
-from main import *
-
-for i in snake_body:
-    print(i)
+with open("high.txt", "a") as file:
+    file.write("oh yeah\n")
