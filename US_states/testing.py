@@ -1,26 +1,6 @@
-import pandas
-from turtle import *
+sentence = "What is the Airspeed Velocity of an Unladen Swallow?"
+each_word = [word for word in sentence.split(" ")]
 
-data = pandas.read_csv("50_states.csv")
+dicto = {key: len(key) for key in each_word}
 
-
-data_dict = data.to_dict()
-states = data.state.to_list()
-
-
-def y_coor(state):
-    index = states.index(state.title())
-    return data_dict["y"][index]
-
-
-def x_coor(state):
-    index = states.index(state.title())
-    return data_dict["x"][index]
-
-
-def mark_state(state):
-    t = Turtle()
-    t.hideturtle()
-    t.penup()
-    t.goto(x_coor(state), y_coor(state))
-    t.write(state)
+print(dicto)

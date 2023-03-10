@@ -1,0 +1,159 @@
+h2 {
+    color: #ff0000;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 30px;
+    font-style: italic;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 20px;
+
+}
+
+
+
+body {
+    background-color: lightblue;
+    color: #000000;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 20px;
+    font-style: italic;
+    font-weight: bold;
+    text-align: center;
+    padding: 20px;
+
+}
+
+div {
+    border-radius: 2px;
+    background-color: lightskyblue;
+    color: #000000;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 20px;
+    font-style: italic;
+    font-weight: bold;
+    text-align: center;
+    padding: 20px;
+    border: 1px solid black;
+}
+
+p {
+    color: #000000;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 20px;
+    font-style: italic;
+    font-weight: bold;
+    text-align: center;
+    height: auto;
+}
+
+button {
+    background-color: black;
+    color: white;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 20px;
+    font-style: italic;
+    font-weight: bold;
+    text-align: center;
+    height: auto;
+    /*make the button oval*/
+    border-radius: 20px;
+    width: 400px;
+}
+
+footer {
+    /* bottom of page */
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: blue;
+    color: #000000;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 20px;
+    font-style: italic;
+    font-weight: bold;
+    text-align: center;
+    border: 1px solid black;
+
+}
+
+#but {
+    /*oval button*/
+    border-radius: 40px;
+    /*make the button bigger*/
+    width: 400px;
+    background-color: #0000ff;
+}
+
+#header {
+    background-color: darkblue;
+    color: #000000;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 20px;
+    font-style: italic;
+    font-weight: bold;
+    text-align: center;
+    border: 1px solid black;
+    width: 100%;
+    height: 50px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+
+}
+
+#wut {
+    /*empty space*/
+    height: 20px;
+}
+
+/* Dropdown Button */
+.dropbtn {
+    background-color: #04AA6D;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}
