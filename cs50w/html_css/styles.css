@@ -10,6 +10,14 @@ h2 {
 
 }
 
+button:hover {
+    cursor: pointer;
+}
+
+a:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
 
 
 body {
@@ -156,4 +164,29 @@ footer {
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {
     background-color: #3e8e41;
+}
+
+#container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#container>div {
+    flex: 1 0 200px;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid black;
+}
+
+#grid {
+    display: grid;
+    grid-column-gap: 20px;
+    grid-row-gap: 10px;
+    grid-template-columns: 200px 200px 200px;
+}
+
+.grid-item {
+    border: 1px solid black;
+    padding: 10px;
+    font-size: 20px;
 }
