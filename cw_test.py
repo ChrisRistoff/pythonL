@@ -7,10 +7,10 @@ def solution(array_a, array_b):
     for index in range(0, len(array_a)):
         num = 0
         if array_a[index] < array_b[index]:
-            for numb in range(array_a[index], array_b[index]):
+            for i in range(array_a[index], array_b[index]):
                 num += 1
         elif array_a[index] > array_b[index]:
-            for numb in range(array_b[index], array_a[index]):
+            for i in range(array_b[index], array_a[index]):
                 num += 1
         else:
             num = 0
