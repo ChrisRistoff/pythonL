@@ -1,4 +1,4 @@
-binary_numbers = [256, 128, 64, 32, 16, 8, 4, 2, 1]
+binary_numbers = [128, 64, 32, 16, 8, 4, 2, 1]
 
 
 def convert_to_binary(number):
