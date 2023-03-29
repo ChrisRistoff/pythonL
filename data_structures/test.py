@@ -1,24 +1,14 @@
-dict1 = {
-        'a': 1,
-        'b': 2,
-        }
+function! SuggestOneCharacter()
+    let suggestion = copilot#Accept("")
+    let bar = copilot#TextQueuedForInsertion()
+    return bar[0]
+endfunction
 
-dict2 = dict1
+function! SuggestOneWord()
+    let suggestion = copilot#Accept("")
+    let bar = copilot#TextQueuedForInsertion()
+    return split(bar, '[ .]\zs')[0]
+endfunction
 
-print("before value is updated:")
-print("dict1: ", dict1)
-print("dict2: ", dict2)
-
-
-
-print ("dict 1 points to: ", id(dict1))
-print ("dict 2 points to: ", id(dict2))
-
-dict2['a'] = 3
-
-print("after value is updated:")
-print("dict1: ", dict1)
-print("dict2: ", dict2)
-
-print ("dict 1 points to: ", id(dict1))
-print ("dict 2 points to: ", id(dict2))
+imap <script><expr> <C-l> SuggestOneWord()
+imap <script><expr> <C-left> SuggestOneCharacter()
