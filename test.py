@@ -100,7 +100,7 @@ class Shop:
         self.cart.append(all[choice-1][item-1])
         return
 
-
+        
 
 if __name__== "__main__":
     shop = Shop()
@@ -108,10 +108,5 @@ if __name__== "__main__":
         choice = shop.take_user_choice()
         shop.add_to_cart(choice)
         print(cart)
-
-
-
-
-
 
 
