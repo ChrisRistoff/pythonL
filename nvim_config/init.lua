@@ -1,8 +1,12 @@
 vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', { noremap = true })
 vim.api.nvim_set_keymap('n', '<C-h>', '<C-w>h', { noremap = true })
 
-vim.g.maplocalleader = " "
 vim.cmd('set wildcharm=<Tab>')
+
+vim.keymap.set("n", "<Space>", "<Nop>", { silent = true, remap = false })
+vim.g.mapleader = " "
+
+vim.o.encoding = "UTF-8"
 
 
 
@@ -23,17 +27,17 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 
-	{ -- nvim-tree
+	{ -- nvim-tree:
 		"nvim-tree/nvim-tree.lua",
 		version = "*",
 		dependencies = {
 			"nvim-tree/nvim-web-devicons",
-		},
+    },
 		config = function()
 			require("nvim-tree").setup({})
 		end,
 	},
-
+  
 
   -- Git related plugins
 	"tpope/vim-fugitive",
@@ -92,15 +96,14 @@ require("lazy").setup({
 		-- See `:help lualine.txt`
 		opts = {
 			options = {
-				icons_enabled = false,
-				theme = "onedark",
+        theme = 'onedark',
+        icons_enabled = true,
 				component_separators = "|",
 				section_separators = "",
 			},
 		},
 	},
-
-	{ -- Add indentation guides even on blank lines
+ 	{ -- Add indentation guides even on blank lines
 		"lukas-reineke/indent-blankline.nvim",
 		-- Enable `lukas-reineke/indent-blankline.nvim`
 		-- See `:help indent_blankline.txt`
@@ -447,7 +450,8 @@ cmp.setup {
 }
 
 -- Copilot only one word at a time in insert mode
-function SuggestOneWord()
+
+function _G.SuggestOneWord()
     local suggestion = vim.fn["copilot#Accept"]("")
     local bar = vim.fn["copilot#TextQueuedForInsertion"]()
     local word = string.match(bar, "[%w_]+")
@@ -460,7 +464,8 @@ function SuggestOneWord()
 end
 
 -- keybindings for SuggestOneWord() function above
-vim.api.nvim_set_keymap('i', '<C-l>', '<script>', {expr = true, silent = true})
-vim.api.nvim_buf_set_keymap(0, 'i', '<C-l>', 'v:lua.SuggestOneWord()', {expr = true, silent = true})
+--vim.keymap.set(0, 'i', '<C-l>', 'v:lua.SuggestOneWord()', {expr = true, silent = true})
+
+vim.api.nvim_set_keymap('i', '<C-l>', 'v:lua.SuggestOneWord()', {expr = true, silent = true})
 
 
