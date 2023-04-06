@@ -137,7 +137,7 @@ class CoffeeMachine:
 
 
 def main():
-    object = CoffeeMachine():
+    object = CoffeeMachine()
     while True:
         choice = object.choice_prompt()
         while type(choice) != str:
