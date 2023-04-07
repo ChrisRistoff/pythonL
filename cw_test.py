@@ -1,6 +1,6 @@
 array_a = [10, 20, 10, 2]
 array_b = [10, 25, 5, -2]
-
+#test
 
 def solution(array_a, array_b):
     array_c = []
