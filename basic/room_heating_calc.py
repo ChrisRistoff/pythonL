@@ -7,8 +7,10 @@ class Room:
         self.width = width
         self.wattage_per_m = wattage_per_m
 
+
     def calculate_square_meter(self):
         return self.length * self.width
+
 
     def calculate_heater_wattage(self):
         return self.calculate_square_meter() * self.wattage_per_m

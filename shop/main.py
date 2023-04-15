@@ -39,6 +39,7 @@ fruits = {
 bill = 0
 cart = []
 
+
 def take_user_choice():
     valid_choices = ["0","1","2","3","4","5"]
 
@@ -104,9 +105,13 @@ def checkout():
 
 
 if __name__ == "__main__":
-
-
-
-
-
+    while True:
+        user_choice = take_user_choice()
+        if user_choice == "5":
+            exit()
+        display_menu(user_choice)
+        if user_choice == "4":
+            checkout()
+        else:
+            take_menu_choice(user_choice)
 

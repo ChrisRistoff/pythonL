@@ -37,7 +37,7 @@ def calculate():
         text = input("Type your message:\n").lower()
         shift = int(input("Type the shift number:\n"))
         coded_word = []
-
+    
         for letter in text:
             index_new_letter = 0
             new_letter = ""

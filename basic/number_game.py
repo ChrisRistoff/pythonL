@@ -5,7 +5,7 @@ def choose_difficulty():
     a = ""
     while a.lower() != "e" and a.lower() != "h":
         a = input(
-            "Choose difficulty, easy or hard\nE for easy = 10 lives\nH for hard = 5 lives\n"
+            "Choose difficulty, easy or hard\nE for easy = 10 lives\nH for hard = 5 lives\n" 
         )
     if a == "e":
         return 10
