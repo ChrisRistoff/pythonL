@@ -11,3 +11,7 @@ class Question:
     def pick_question(self):
         question = self.question_data[self.index]
         return question
+
+def main():
+    question = Question(0)
+    print(question.pick_question())
