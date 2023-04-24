@@ -6,7 +6,11 @@ vim.cmd('set wildcharm=<Tab>')
 vim.keymap.set("n", "<Space>", "<Nop>", { silent = true, remap = false })
 vim.g.mapleader = " "
 
+vim.api.nvim_set_option("clipboard","unnamed")
 vim.o.encoding = "UTF-8"
+vim.keymap.set("n", "<F2>", ":ChatGPT<CR>", { noremap = true, silent = true })
+
+
 
 
 
@@ -38,7 +42,128 @@ require("lazy").setup({
 		end,
 	},
   
-
+	-- chat gpt plugin
+	{
+	    "jackMort/ChatGPT.nvim",
+		commit = '8820b99c',
+		event = "VeryLazy",
+		config = function()
+	        require("chatgpt").setup(
+			{
+  yank_register = "+",
+  edit_with_instructions = {
+    diff = false,
+    keymaps = {
+      accept = "<C-y>",
+      toggle_diff = "<C-d>",
+      toggle_settings = "<C-o>",
+      cycle_windows = "<Tab>",
+      use_output_as_input = "<C-i>",
+    },
+  },
+  chat = {
+    welcome_message = WELCOME_MESSAGE,
+    loading_text = "Loading, please wait ...",
+    question_sign = "", -- 🙂
+    answer_sign = "ﮧ", -- 🤖
+    max_line_length = 120,
+    sessions_window = {
+      border = {
+        style = "rounded",
+        text = {
+          top = " Sessions ",
+        },
+      },
+      win_options = {
+        winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
+      },
+    },
+    keymaps = {
+      close = { "<C-c>" },
+      yank_last = "<C-y>",
+      yank_last_code = "<C-k>",
+      scroll_up = "<C-u>",
+      scroll_down = "<C-d>",
+      toggle_settings = "<C-o>",
+      new_session = "<C-n>",
+      cycle_windows = "<Tab>",
+      select_session = "<Space>",
+      rename_session = "r",
+      delete_session = "d",
+    },
+  },
+  popup_layout = {
+    relative = "editor",
+    position = "50%",
+    size = {
+      height = "80%",
+      width = "80%",
+    },
+  },
+  popup_window = {
+    filetype = "chatgpt",
+    border = {
+      highlight = "FloatBorder",
+      style = "rounded",
+      text = {
+        top = " ChatGPT ",
+      },
+    },
+    win_options = {
+      winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
+    },
+  },
+  popup_input = {
+    prompt = "  ",
+    border = {
+      highlight = "FloatBorder",
+      style = "rounded",
+      text = {
+        top_align = "center",
+        top = " Prompt ",
+      },
+    },
+    win_options = {
+      winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
+    },
+    submit = "<C-Enter>",
+  },
+  settings_window = {
+    border = {
+      style = "rounded",
+      text = {
+        top = " Settings ",
+      },
+    },
+    win_options = {
+      winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
+    },
+  },
+  openai_params = {
+    model = "gpt-3.5-turbo",
+    frequency_penalty = 0,
+    presence_penalty = 0,
+    max_tokens = 300,
+    temperature = 0,
+    top_p = 1,
+    n = 1,
+  },
+  openai_edit_params = {
+    model = "code-davinci-edit-001",
+    temperature = 0,
+    top_p = 1,
+    n = 1,
+  },
+  actions_paths = {},
+  predefined_chat_gpt_prompts = "https://raw.githubusercontent.com/f/awesome-chatgpt-prompts/main/prompts.csv",
+}
+			)
+		end,
+		dependencies = {
+		    "MunifTanjim/nui.nvim",
+		    "nvim-lua/plenary.nvim",
+		    "nvim-telescope/telescope.nvim",}
+				},
   -- Git related plugins
 	"tpope/vim-fugitive",
 	"tpope/vim-rhubarb",
@@ -66,6 +191,9 @@ require("lazy").setup({
 		"hrsh7th/nvim-cmp",
 		dependencies = { "hrsh7th/cmp-nvim-lsp", "L3MON4D3/LuaSnip", "saadparwaiz1/cmp_luasnip" },
 	},
+
+	--debugger
+	{'puremourning/vimspector'},
 
 	-- Useful plugin to show you pending keybinds.
 	{ "folke/which-key.nvim", opts = {} },
@@ -194,6 +322,8 @@ vim.o.termguicolors = true
 -- [[ Basic Keymaps ]]
 -- nvim-tree toggle
 vim.keymap.set("n", "<F3>", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<F4>", ":Copilot<CR>", { noremap = true, silent = true })
+
 
 -- Keymaps for better default experience
 -- See `:help vim.keymap.set()`
@@ -246,72 +376,72 @@ vim.keymap.set("n", "<leader>sh", require("telescope.builtin").help_tags, { desc
 vim.keymap.set("n", "<leader>sw", require("telescope.builtin").grep_string, { desc = "[S]earch current [W]ord" })
 vim.keymap.set("n", "<leader>sg", require("telescope.builtin").live_grep, { desc = "[S]earch by [G]rep" })
 vim.keymap.set("n", "<leader>sd", require("telescope.builtin").diagnostics, { desc = "[S]earch [D]iagnostics" })
+--
+-- -- -- [[ Configure Treesitter ]]
+-- -- -- See `:help nvim-treesitter`
+ require("nvim-treesitter.configs").setup({
+ 	-- Add languages to be installed 
+ 	ensure_installed = { "c", "cpp", "lua", "python", "vim" },
 
--- [[ Configure Treesitter ]]
--- See `:help nvim-treesitter`
-require("nvim-treesitter.configs").setup({
-	-- Add languages to be installed 
-	ensure_installed = { "c", "cpp", "lua", "python", "vim" },
+ 	-- Autoinstall languages that are not installed. Defaults to false
+ 	auto_install = false,
 
-	-- Autoinstall languages that are not installed. Defaults to false
-	auto_install = false,
-
-	highlight = { enable = true },
-	indent = { enable = true, disable = { "python" } },
-	incremental_selection = {
-		enable = true,
-		keymaps = {
-			init_selection = "<c-space>",
-			node_incremental = "<c-space>",
-			scope_incremental = "<c-s>",
-			node_decremental = "<M-space>",
-		},
-	},
-	textobjects = {
-		select = {
-			enable = true,
-			lookahead = true, -- Automatically jump forward to textobj
-			keymaps = {
-				--use the capture groups defined in textobjects.scm
-				["aa"] = "@parameter.outer",
-				["ia"] = "@parameter.inner",
-				["af"] = "@function.outer",
-				["if"] = "@function.inner",
-				["ac"] = "@class.outer",
-				["ic"] = "@class.inner",
-			},
-		},
-		move = {
-			enable = true,
-			set_jumps = true, -- whether to set jumps in the jumplist
-			goto_next_start = {
-				["]m"] = "@function.outer",
-				["]]"] = "@class.outer",
-			},
-			goto_next_end = {
-				["]M"] = "@function.outer",
-				["]["] = "@class.outer",
-			},
-			goto_previous_start = {
-				["[m"] = "@function.outer",
-				["[["] = "@class.outer",
-			},
-			goto_previous_end = {
-				["[M"] = "@function.outer",
-				["[]"] = "@class.outer",
-			},
-		},
-		swap = {
-			enable = true,
-			swap_next = {
-				["<leader>a"] = "@parameter.inner",
-			},
-			swap_previous = {
-				["<leader>A"] = "@parameter.inner",
-			},
-		},
-	},
-})
+ 	highlight = { enable = true },
+ 	indent = { enable = true, disable = { "python" } },
+ 	incremental_selection = {
+ 		enable = true,
+ 		keymaps = {
+ 			init_selection = "<c-space>",
+ 			node_incremental = "<c-space>",
+ 			scope_incremental = "<c-s>",
+ 			node_decremental = "<M-space>",
+ 		},
+ 	},
+ 	textobjects = {
+ 		select = {
+ 			enable = true,
+ 			lookahead = true, -- Automatically jump forward to textobj
+ 			keymaps = {
+ 				--use the capture groups defined in textobjects.scm
+ 				["aa"] = "@parameter.outer",
+ 				["ia"] = "@parameter.inner",
+ 				["af"] = "@function.outer",
+ 				["if"] = "@function.inner",
+ 				["ac"] = "@class.outer",
+ 				["ic"] = "@class.inner",
+ 			},
+ 		},
+ 		move = {
+ 			enable = true,
+ 			set_jumps = true, -- whether to set jumps in the jumplist
+ 			goto_next_start = {
+ 				["]m"] = "@function.outer",
+ 				["]]"] = "@class.outer",
+ 			},
+ 			goto_next_end = {
+ 				["]M"] = "@function.outer",
+ 				["]["] = "@class.outer",
+ 			},
+ 			goto_previous_start = {
+ 				["[m"] = "@function.outer",
+ 				["[["] = "@class.outer",
+ 			},
+ 			goto_previous_end = {
+ 				["[M"] = "@function.outer",
+ 				["[]"] = "@class.outer",
+ 			},
+ 		},
+ 		swap = {
+ 			enable = true,
+ 			swap_next = {
+ 				["<leader>a"] = "@parameter.inner",
+ 			},
+ 			swap_previous = {
+ 				["<leader>A"] = "@parameter.inner",
+ 			},
+ 		},
+ 	},
+ })
 
 -- Diagnostic keymaps
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
@@ -368,12 +498,12 @@ local servers = {
 	-- rust_analyzer = {},
 	-- tsserver = {},
 
-	lua_ls = {
-		Lua = {
-			workspace = { checkThirdParty = false },
-			telemetry = { enable = false },
-		},
-	},
+	--lua_ls = {
+	--	Lua = {
+	--		workspace = { checkThirdParty = false },
+	--		telemetry = { enable = false },
+	--	},
+	--},
 }
 
 -- Setup neovim lua configuration
