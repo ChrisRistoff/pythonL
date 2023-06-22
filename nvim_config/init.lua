@@ -1,7 +1,7 @@
 vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', { noremap = true })
 vim.api.nvim_set_keymap('n', '<C-h>', '<C-w>h', { noremap = true })
 
-vim.cmd('set wildcharm=<Tab>')
+v m.cmd('set wildcharm=<Tab>')
 
 vim.keymap.set("n", "<Space>", "<Nop>", { silent = true, remap = false })
 vim.g.mapleader = " "
@@ -11,7 +11,7 @@ vim.o.encoding = "UTF-8"
 vim.keymap.set("n", "<F2>", ":ChatGPT<CR>", { noremap = true, silent = true })
 
 
-
+vim.api.nvim_set_option('clipboard', 'unnamedplus')
 
 
 -- Install package manager
@@ -381,7 +381,7 @@ vim.keymap.set("n", "<leader>sd", require("telescope.builtin").diagnostics, { de
 -- -- -- See `:help nvim-treesitter`
  require("nvim-treesitter.configs").setup({
  	-- Add languages to be installed 
- 	ensure_installed = { "c", "cpp", "lua", "python", "vim" },
+ 	ensure_installed = { "c", "cpp", "lua", "python", "vim", "typescript", "javascript", "html", "css", "json", "yaml" },
 
  	-- Autoinstall languages that are not installed. Defaults to false
  	auto_install = false,
@@ -496,7 +496,7 @@ local servers = {
 	-- gopls = {},
 	pyright = {},
 	-- rust_analyzer = {},
-	-- tsserver = {},
+	tsserver = {},
 
 	--lua_ls = {
 	--	Lua = {
@@ -580,7 +580,7 @@ cmp.setup {
 }
 
 -- Copilot only one word at a time in insert mode
-
+--[[ 
 function _G.SuggestOneWord()
     local suggestion = vim.fn["copilot#Accept"]("")
     local bar = vim.fn["copilot#TextQueuedForInsertion"]()
@@ -592,10 +592,28 @@ function _G.SuggestOneWord()
         return word
     end
 end
+ ]]
+
+function _G.SuggestOneWord()
+    local suggestion = vim.fn["copilot#Accept"]("")
+    local bar = vim.fn["copilot#TextQueuedForInsertion"]()
+    local word = string.match(bar, "[%w_]+") or ""
+    local symbol = string.match(bar, "[%p%s]+", string.len(word) + 1) or ""
+    local combined = word .. symbol
+
+    -- Check if the string after the word contains a word character
+    local nextWordCharacter = string.match(symbol, "[%w_]")
+    if nextWordCharacter then
+        -- If it does, truncate the symbols to the first word character
+        combined = string.match(combined, ".*[%w_]")
+    end
+
+    return combined
+end
+
 
 -- keybindings for SuggestOneWord() function above
 --vim.keymap.set(0, 'i', '<C-l>', 'v:lua.SuggestOneWord()', {expr = true, silent = true})
 
 vim.api.nvim_set_keymap('i', '<C-l>', 'v:lua.SuggestOneWord()', {expr = true, silent = true})
-
 
